@@ -1,0 +1,60 @@
+<form [formGroup]="formulario">
+
+  <ion-item>
+    <ion-label position="stacked">Título</ion-label>
+    <ion-input
+      type="text"
+      formControlName="titulo"
+      placeholder="Ingrese el título">
+    </ion-input>
+  </ion-item>
+
+  <div *ngIf="titulo?.touched && titulo?.invalid" style="color: red; margin: 5px;">
+    <p *ngIf="titulo?.errors?.['required']">
+      El título es obligatorio.
+    </p>
+    <p *ngIf="titulo?.errors?.['minlength']">
+      El título debe tener al menos 5 caracteres.
+    </p>
+  </div>
+
+  <ion-item>
+    <ion-label position="stacked">Descripción</ion-label>
+    <ion-textarea
+      formControlName="descripcion"
+      placeholder="Ingrese la descripción del aviso">
+    </ion-textarea>
+  </ion-item>
+
+  <div *ngIf="descripcion?.touched && descripcion?.invalid" style="color: red; margin: 5px;">
+    <p *ngIf="descripcion?.errors?.['required']">
+      La descripción es obligatoria.
+    </p>
+    <p *ngIf="descripcion?.errors?.['minlength']">
+      La descripción debe tener al menos 20 caracteres.
+    </p>
+  </div>
+
+  <ion-button
+    type="button"
+    expand="block"
+    color="secondary"
+    (click)="tomarFoto()">
+    Tomar Foto (opcional)
+  </ion-button>
+
+  <ion-img
+    *ngIf="imagen"
+    [src]="imagen"
+    class="preview-img">
+  </ion-img>
+
+  <ion-button
+    type="button"
+    expand="block"
+    color="primary"
+    [disabled]="formulario.invalid"
+    (click)="guardarPost()">
+    Guardar Aviso
+  </ion-button>
+</form>

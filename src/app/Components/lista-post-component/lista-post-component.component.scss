@@ -1,0 +1,11 @@
+.titulo-fecha {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fecha {
+  font-size: 0.8rem;
+  color: var(--ion-color-medium);
+  white-space: nowrap;
+}

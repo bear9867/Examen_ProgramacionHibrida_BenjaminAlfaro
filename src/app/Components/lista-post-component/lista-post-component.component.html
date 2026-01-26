@@ -1,0 +1,67 @@
+<ion-list>
+
+  <ion-item *ngFor="let post of (posts$ | async) ?? []">
+    <ion-label>
+      <div class="titulo-fecha">
+        <h2>{{ post.Titulo }}</h2>
+        <span *ngIf="post.Fecha" class="fecha">
+          {{ post.Fecha | date:'dd/MM/yyyy' }}
+        </span>
+      </div>
+    </ion-label>
+
+    <ion-img
+      *ngIf="post.Imagen"
+      [src]="post.Imagen"
+      style="max-width: 90px; margin-left: 10px;">
+    </ion-img>
+
+    <ion-icon
+      name="trash"
+      color="danger"
+      slot="end"
+      style="font-size: 22px; cursor: pointer;"
+      (click)="abrirModal(post)">
+    </ion-icon>
+  </ion-item>
+</ion-list>
+
+<p *ngIf="((posts$ | async) ?? []).length === 0"
+   style="text-align: center; margin-top: 20px;">
+  No hay posts publicados.
+</p>
+
+
+
+
+<ion-modal
+  [isOpen]="modalAbierto"
+  (didDismiss)="cancelar()">
+  <ng-template>
+
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Confirmar eliminación</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="ion-padding">
+    <p>
+      ¿Estás seguro que deseas eliminar el aviso
+      <strong>{{ postSeleccionado?.Titulo }}</strong>?
+    </p>
+    <ion-button
+      expand="block"
+      color="danger"
+      (click)="confirmarEliminar()">
+      Eliminar
+    </ion-button>
+    <ion-button
+      expand="block"
+      fill="outline"
+      (click)="cancelar()">
+      Cancelar
+    </ion-button>
+  </ion-content>
+</ng-template>
+</ion-modal>
